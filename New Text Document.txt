@@ -1,0 +1,45 @@
+https://formden.com/form-builder/
+https://rjsf-team.github.io/react-jsonschema-form/
+https://react.rocks/tag/FormGenerator
+
+
+
+import * as React from 'react'
+import { useState } from 'react'
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+interface SelectProps {
+    addControl: (e: any) => void;
+}
+const Add = ({ addControl }: SelectProps) => {
+    const [values, setValues] = React.useState({
+        age: '',
+        name: 'hai',
+      });
+    
+      const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+        setValues(oldValues => ({
+          ...oldValues,
+          [event.target.name as string]: event.target.value,
+        }));
+      };
+    return <div className="select">
+        <Select
+            value={values.age}
+            onChange={handleChange}
+            displayEmpty
+            name="age"
+        >
+            <MenuItem value={1}>ShortAnswer</MenuItem>
+            <MenuItem value={2}>Paragraph</MenuItem>
+            <MenuItem value={4}>MultipleChoice</MenuItem>
+            <MenuItem value={5}>Checkboxes</MenuItem>
+            <MenuItem value={6}>Dropdown</MenuItem>
+            <MenuItem value={7}>FileUpload</MenuItem>
+            <MenuItem value={8}>DateTimepicker</MenuItem>
+        </Select>
+    </div>
+
+
+}
+export default Add;

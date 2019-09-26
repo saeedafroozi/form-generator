@@ -1,0 +1,163 @@
+// .App {
+//   text-align: center;
+// }
+
+// .App-logo {
+//   animation: App-logo-spin infinite 20s linear;
+//   height: 40vmin;
+//   pointer-events: none;
+// }
+
+// .App-header {
+//   background-color: #282c34;
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: calc(10px + 2vmin);
+//   color: white;
+// }
+
+// .App-link {
+//   color: #61dafb;
+// }
+
+// @keyframes App-logo-spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+
+.app-bar {
+  direction: rtl;
+  .visibility {
+    font-size: 24px !important;
+  }
+}
+
+.designer {
+  padding: 50px;
+  .select {
+    .active {
+      .tab {
+        color: white;
+        background-color: #3498db;
+        &:hover {
+          color: white;
+          background-color: #3498db;
+        }
+      }
+    }
+    .deactive {
+      .tab {
+        &:hover {
+          color: white;
+          background-color: #3498db;
+        }
+      }
+    }
+  }
+  .display {
+    .tab {
+      font-size: 14px;
+      color: #673ab7;
+    }
+    .tabs {
+      background-color: unset;
+    }
+  }
+
+  .menu {
+    .tab-content {
+      .show {
+        display: block;
+      }
+      .hidden {
+        display: none;
+      }
+    }
+  }
+}
+
+.card {
+  display: block;
+  background: #ffffff;
+  width: 100%;
+  min-height: 200px;
+  height: auto;
+  border-radius: 2px;
+  margin: 0px;
+  display: inline-block;
+  align: center;
+  transition: all 0.25s linear;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.4);
+  font-size: 24px;
+  .divider {
+    margin-top: 20px;
+    margin-left: 25px;
+  }
+  .switch {
+    vertical-align: middle;
+    font-size: 20px !important;
+  }
+  .customDivider {
+    border-left: 1px solid #e0e0e0;
+    height: 32px;
+    margin: 0 16px;
+    width: 0;
+  }
+  .deleteIcon {
+    font-size: 28px;
+    margin-top: -5px;
+  }
+  .action {
+    -webkit-box-align: center;
+    box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    box-pack: end;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    margin-left: 42px;
+    padding-right: 40px;
+    border-top: 1px solid #e0e0e0;
+    height: 64px;
+    margin-top: 34px;
+  }
+}
+
+.card:hover {
+  webkit-box-shadow: 0 -2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+}
+.MuiInputBase-input {
+  font-size: 18px !important;
+}
+.Mui-disabled {
+  font-size: 14px !important;
+  //width: 60% !important;
+}
+.MuiCardContent-root {
+  margin-left: 26px;
+}
+.select {
+  margin-top: -21px;
+  .control {
+    width: 170px;
+    font-size: 14px;
+  }
+  .lable {
+    font-size: 14px;
+  }
+}
+.select-item {
+  font-size: 14px !important;
+}
