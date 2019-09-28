@@ -12,11 +12,11 @@ export const addControl = (selectedControl: number, id: string) => {
     };
    
 }
-export const setValue = (id: string, mode: FormMode, attribute:any,type:ControlType) => {
+export const setValue = (id: string, mode: FormMode, attributes:any,type:ControlType) => {
    
     return {
         type: ACTION_TYPES.SET_VALUE,
-        payload: { id: id, mode: mode, value: attribute,type:type }
+        payload: { id: id, mode: mode, attributes: attributes,type:type }
     };
    
 }

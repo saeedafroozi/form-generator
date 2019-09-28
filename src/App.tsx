@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 export const loadState = () => {
   try {
-    const serializedState = localStorage.getItem(`app-state-${process.env.VERSION}`);
+    const serializedState = localStorage.getItem(`app-state7-${process.env.VERSION}`);
     if (serializedState === null) {
       return undefined;
     }
@@ -24,7 +24,7 @@ export const loadState = () => {
 export const saveState = (state: any) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem(`app-state-${process.env.VERSION}`, serializedState);
+    localStorage.setItem(`app-state7-${process.env.VERSION}`, serializedState);
   } catch {
     // ignore write errors
   }

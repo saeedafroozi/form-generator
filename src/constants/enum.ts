@@ -12,3 +12,11 @@ export enum FormMode {
     Edit = 1,
     View = 2
 }
+export enum MultipleChoiceTypeEvent {
+    addOption = 1,
+    removeOption = 2,
+    changeValueOption = 3,
+    selectRadioAnswer = 4,
+    changeQuestionValue = 5,
+    selectCheckbox = 6
+}

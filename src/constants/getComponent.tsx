@@ -1,58 +1,150 @@
 import React from 'react';
-import Checkbox from '../components/basicComponents/Checkbox';
 import TextInput from '../components/basicComponents/TextInput';
 import WrapperMultipleChoice from '../components/basicComponents/MultipleChoice'
-import { ControlType, FormMode } from '../constants/enum'
-import { IBaseComponent } from '../constants/index'
+import { ControlType, FormMode, MultipleChoiceTypeEvent } from '../constants/enum'
+import { IBaseComponent, ShorAnswer, MultipleChoiceAttributes } from '../constants/index'
+const uid = require('uuid/v1')
 
 
 
-class CheckboxInput implements IBaseComponent {
 
-    validate(): PromiseLike<{ errors: any[], values: object }> {
-        return new Promise<{ errors: any[], values: object }>(executor => {
-            executor();
-        });
-    }
-    getComponent(mode: FormMode, onChange: (e: any, id: string, mode: FormMode, type: ControlType) => void, id: string, attributes?: any): React.ReactNode {
-
-        return <Checkbox mode={mode} onChange={onChange} id={id} attributes={attributes} />
-    }
-}
 class ShortAnswer implements IBaseComponent {
 
+    changeHandler(oldValue, attributes: ShorAnswer) {
+        const obj = { ...oldValue };
+        if (obj.attributes && obj.attributes.questionValue) {
+            obj.attributes.questionValue = attributes.questionValue;
+        }
+        else {
+            obj.attributes = { questionValue: attributes.questionValue }
+        }
+        return obj;
+    }
     validate(): PromiseLike<{ errors: any[], values: object }> {
         return new Promise<{ errors: any[], values: object }>(executor => {
             executor();
         });
     }
-    getComponent(mode: FormMode, onChange: (e: any, id: string, mode: FormMode, type: ControlType) => void, id: string, attributes?: any): React.ReactNode {
+    getComponent(mode: FormMode, onChange: (attributes: ShorAnswer, id: string, mode: FormMode, type: ControlType) => void, id: string, attributes?: any): React.ReactNode {
 
         return <TextInput key={id} mode={mode} onChange={onChange} id={id} attributes={attributes} />
     }
 }
 class Paragraph implements IBaseComponent {
+    changeHandler(oldValue, attributes: ShorAnswer) {
+        const obj = { ...oldValue };
+        if (obj.attributes && obj.attributes.questionValue) {
+            obj.attributes.questionValue = attributes.questionValue;
+        }
+        else {
+            obj.attributes = { questionValue: attributes.questionValue }
+        }
+        return obj;
+    }
 
     validate(): PromiseLike<{ errors: any[], values: object }> {
         return new Promise<{ errors: any[], values: object }>(executor => {
             executor();
         });
     }
-    getComponent(mode: FormMode, onChange: (e: any, id: string, mode: FormMode, type: ControlType) => void, id: string, attributes?: any): React.ReactNode {
+    getComponent(mode: FormMode, onChange: (attributes: any, id: string, mode: FormMode, type: ControlType) => void, id: string, attributes?: any): React.ReactNode {
 
         return <TextInput multiline={true} key={id} mode={mode} onChange={onChange} id={id} attributes={attributes} />
     }
 }
-class MultipleChoice implements IBaseComponent {
+class CheckboxInput implements IBaseComponent {
+    changeHandler(oldValue, attributes: MultipleChoiceAttributes) {
+        const obj = { ...oldValue };
+        if (attributes.type === MultipleChoiceTypeEvent.selectCheckbox) {
+            const options = [...obj.attributes.questionOptions];
+            const index = options.findIndex(x => x.id == attributes.questionOptions[0].id);
+            const option = { ...options[index] };
+            option.selected = attributes.questionOptions[0].selected;
+            obj.attributes.questionOptions[index] = option;
+        }
+        //add options
+        else if (attributes.type === MultipleChoiceTypeEvent.addOption) {
+            const options = [...obj.attributes.questionOptions];
+            options.push({ id: uid(), value: "Option" + (options.length + 1), selected: false })
+            obj.attributes.questionOptions = options;
+        }
+        //remove Options
+        else if (attributes.type === MultipleChoiceTypeEvent.removeOption) {
+            const options = [...obj.attributes.questionOptions];
+            const index = options.findIndex(x => x.id === attributes.optionId)
+            options.splice(index, 1);
+            obj.attributes.questionOptions = options;
+        }
+        //questionValue
+        else if (attributes.type === MultipleChoiceTypeEvent.changeQuestionValue) {
+            obj.attributes.questionValue = attributes.questionValue;
+        }
+        //optionValue
+        else if (attributes.type === MultipleChoiceTypeEvent.changeValueOption) {
+            const options = [...obj.attributes.questionOptions];
+            const index = options.findIndex(x => x.id == attributes.questionOptions[0].id);
+            const option = { ...options[index] };
+            option.value = attributes.questionOptions[0].value;
+            obj.attributes.questionOptions[index] = option;
+        }
+        return obj;
+    }
 
     validate(): PromiseLike<{ errors: any[], values: object }> {
         return new Promise<{ errors: any[], values: object }>(executor => {
             executor();
         });
     }
-    getComponent(mode: FormMode, onChange: (e: any, id: string, mode: FormMode, type: ControlType) => void, id: string, attributes?: any): React.ReactNode {
+    getComponent(mode: FormMode, onChange: (attributes: any, id: string, mode: FormMode, type: ControlType) => void, id: string, attributes?: any): React.ReactNode {
 
-        return <WrapperMultipleChoice  key={id} mode={mode} onChange={onChange} id={id} attributes={attributes} />
+        return <WrapperMultipleChoice multiChoice={true} key={id} mode={mode} onChange={onChange} id={id} attributes={attributes} />
+    }
+}
+class MultipleChoice implements IBaseComponent {
+
+    changeHandler(oldValue, attributes: MultipleChoiceAttributes) {
+        const obj = { ...oldValue };
+        //select answer
+        if (attributes.type === MultipleChoiceTypeEvent.selectRadioAnswer) {
+            obj.attributes.selectedAnswer = attributes.selectedAnswer;
+        }
+        //add options
+        else if (attributes.type === MultipleChoiceTypeEvent.addOption) {
+            const options = [...obj.attributes.questionOptions];
+            options.push({ id: uid(), value: "Option" + (options.length + 1) })
+            obj.attributes.questionOptions = options;
+        }
+        //remove Options
+        else if (attributes.type === MultipleChoiceTypeEvent.removeOption) {
+            const options = [...obj.attributes.questionOptions];
+            const index = options.findIndex(x => x.id === attributes.optionId)
+            options.splice(index, 1);
+            obj.attributes.questionOptions = options;
+        }
+        //questionValue
+        else if (attributes.type === MultipleChoiceTypeEvent.changeQuestionValue) {
+
+            obj.attributes.questionValue = attributes.questionValue;
+        }
+        //optionValue
+        else if (attributes.type === MultipleChoiceTypeEvent.changeValueOption) {
+            const options = [...obj.attributes.questionOptions];
+            const index = options.findIndex(x => x.id == attributes.questionOptions[0].id);
+            const option = { ...options[index] };
+            option.value = attributes.questionOptions[0].value;
+            obj.attributes.questionOptions[index] = option;
+        }
+        return obj;
+    }
+
+    validate(): PromiseLike<{ errors: any[], values: object }> {
+        return new Promise<{ errors: any[], values: object }>(executor => {
+            executor();
+        });
+    }
+    getComponent(mode: FormMode, onChange: (attributes: any, id: string, mode: FormMode, type: ControlType) => void, id: string, attributes?: any): React.ReactNode {
+
+        return <WrapperMultipleChoice multiChoice={false} key={id} mode={mode} onChange={onChange} id={id} attributes={attributes} />
     }
 }
 export class Factory {
@@ -68,7 +160,7 @@ export class Factory {
             case ControlType.Paragraph:
                 result = new Paragraph();
                 break;
-                case ControlType.MultipleChoice:
+            case ControlType.MultipleChoice:
                 result = new MultipleChoice();
                 break;
         }

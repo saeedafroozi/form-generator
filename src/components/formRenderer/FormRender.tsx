@@ -33,8 +33,8 @@ const FormRenderer = ({ structure, mode, setValue }: FormRendererProps & FormRen
     }
     return <React.Fragment>
         {structure.map((Component) => {
-            let instance = Factory.create(Component.Type);
-            return <div key={Component.Id}>{(instance as IBaseComponent).getComponent(mode, handleOnChange, Component.Id, Component.Attributes)}</div>
+            let instance = Factory.create(Component.type);
+            return <div key={Component.id}>{(instance as IBaseComponent).getComponent(mode, handleOnChange, Component.id, Component.attributes)}</div>
         })}
     </React.Fragment>
 }

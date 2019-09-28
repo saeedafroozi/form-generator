@@ -13,7 +13,13 @@ interface TextInputProps extends ControlProps<ShorAnswer> {
 
 const TextInput = ({ multiline, mode, onChange, id, attributes }: TextInputProps) => {
 
+    const handleOnchange = (e) => {
+        let newAttributes: ShorAnswer;
+        newAttributes = mode === FormMode.Edit ? { questionValue: e.target.value } :
+            { answerValue: e.target.value }
 
+        onChange(newAttributes, id, mode, multiline ? ControlType.Paragraph : ControlType.ShortAnswer)
+    }
     let result = null;
     switch (mode) {
         case FormMode.View:
@@ -21,7 +27,7 @@ const TextInput = ({ multiline, mode, onChange, id, attributes }: TextInputProps
                 id={id + "question"}
                 key={id + "question"}
                 className="input disable"
-                value={attributes ? attributes.questionValue : ""}
+                defaultValue={attributes ? attributes.questionValue : ""}
                 fullWidth
                 placeholder="Question"
                 disabled
@@ -33,7 +39,7 @@ const TextInput = ({ multiline, mode, onChange, id, attributes }: TextInputProps
                 value={attributes ? attributes.answerValue : ""}
                 placeholder="Your Answer"
                 fullWidth
-                onChange={(e: any) => onChange(e, id, mode, multiline ? ControlType.Paragraph : ControlType.ShortAnswer)}
+                onChange={handleOnchange}
                 multiline={multiline}
             />]
             break;
@@ -45,14 +51,14 @@ const TextInput = ({ multiline, mode, onChange, id, attributes }: TextInputProps
                 className="input"
                 value={attributes ? attributes.questionValue : ""}
                 placeholder="Question"
-                onChange={(e: any) => onChange(e, id, mode, multiline ? ControlType.Paragraph : ControlType.ShortAnswer)}
+                onChange={handleOnchange}
                 fullWidth
             />,
             <TextField
                 id={id + "answer"}
                 key={id + "answer"}
                 className="input disable"
-                value={attributes ? attributes.answerValue : ""}
+                defaultValue={""}
                 placeholder="Your Answer"
                 fullWidth={multiline}
                 disabled

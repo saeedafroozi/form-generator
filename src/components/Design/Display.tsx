@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { useState } from 'react'
-import { Editor, Preview } from '../field/index'
+import { Editor } from '../field/index'
 import { Component } from '../../constants/index'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';

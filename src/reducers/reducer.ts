@@ -1,7 +1,9 @@
 import { ACTION_TYPES } from '../actions/index'
-import { Component } from '../constants/index'
+import { Component, IBaseComponent } from '../constants/index'
 import { ControlType, FormMode } from '../constants/enum'
-import { AnyAction } from 'redux';
+import { Factory } from '../constants/getComponent';
+const uid = require('uuid/v1')
+
 
 // const initState:Component = {
 //     DataIndex?: undefined,
@@ -26,57 +28,56 @@ const initState = {
 }
 
 
-export default (state: StateModel = initState, action: Action): StateModel => {
+const ACTION_HANDLERS = {
+    [ACTION_TYPES.ADD_CONTROL]: handleAddControl,
+    [ACTION_TYPES.SET_VALUE]: handleSetValue
+}
+const object_handlers = {
+    [ControlType.ShortAnswer]: handleShortAnswer,
+    [ControlType.Paragraph]: handleShortAnswer,
+    [ControlType.MultipleChoice]: handleMultipleChoice,
+    [ControlType.Checkboxes]: handleCheckboxes
+}
+function handleMultipleChoice(state, payload) {
+    return { attributes: { questionOptions: [{ id: uid(), value: "Option" + 1 }] }, type: payload.type, id: payload.id }
+}
+function handleCheckboxes(state, payload) {
+    return { attributes: { questionOptions: [{ id: uid(), value: "Option" + 1, selected: false }] }, type: payload.type, id: payload.id }
+}
+function handleShortAnswer(state, payload) {
+    return { type: payload.type, id: payload.id };
+}
 
-    switch (action.type) {
-        case ACTION_TYPES.ADD_CONTROL:
-            return {
-                ...state,
-                structure: [...state.structure, { Type: action.payload.Type, Id: action.payload.Id }],
-                selectedControl: action.payload.Type
-            };
-        case ACTION_TYPES.SET_VALUE:
+function handleAddControl(state, payload) {
+    return {
+        ...state,
+        structure: [...state.structure, (object_handlers[payload.type] || (() => state))(state, payload)],
+        selectedControl: payload.type
+    };
+}
 
-            const list = [...state.structure];
-            const index = list.findIndex(x => x.Id === action.payload.Id);
-            const obj = { ...list[index], Attributes: list[index].Attributes ? { ...list[index].Attributes } : null };
+function handleSetValue(state, payload) {
+    const list = [...state.structure];
+    const index = list.findIndex(x => x.id === payload.id);
+    const obj = { ...list[index], attributes: list[index].attributes ? { ...list[index].attributes } : null };
+    let newObj;
+    //if (payload.mode === FormMode.Edit) {
+        newObj = (Factory.create(payload.type) as IBaseComponent).changeHandler(obj, payload.attributes);
+    //}
+    // else {
+    //     if (obj.attributes && obj.attributes.answerValue) {
+    //         obj.attributes.answerValue = payload.Value;
+    //     }
+    //     else {
+    //         obj.attributes = { answerValue: payload.Value }
+    //     }
+    // }
+    const newArray = [...list.slice(0, index), newObj, ...list.slice(index + 1)]
+    return {
+        ...state,
+        structure: newArray
+    };
+}
 
+export default (state: StateModel = initState, action: Action): StateModel => (ACTION_HANDLERS[action.type] || (() => state))(state, action.payload);
 
-
-            if (action.payload.Mode === FormMode.Edit) {
-                if (action.payload.Type === ControlType.ShortAnswer || action.payload.Type === ControlType.Paragraph) {
-
-                    if (obj.Attributes && obj.Attributes.questionValue) {
-                        obj.Attributes.questionValue = action.payload.Value;
-                    }
-                    else {
-                        obj.Attributes = { questionValue: action.payload.Value }
-                    }
-                }
-
-            }
-            else {
-                if (obj.Attributes && obj.Attributes.answerValue) {
-                    obj.Attributes.answerValue = action.payload.Value;
-                }
-                else {
-                    obj.Attributes = { answerValue: action.payload.Value }
-                }
-            }
-            const newArray = [...list.slice(0, index), obj, ...list.slice(index + 1)]
-            return {
-                ...state,
-                structure: newArray
-            };
-        // case ACTION_TYPES.SELECT_CATEGORY:
-        //     return {
-        //         ...state,
-        //         selectedCategory: action.payload.selectedCategory,
-        //         images: action.payload.images,
-        //         isLoading: false,
-        //         pageIndex: 1
-        //     };
-        default:
-            return state;
-    }
-}   

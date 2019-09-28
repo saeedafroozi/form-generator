@@ -1,10 +1,8 @@
 import * as React from 'react'
-import { useState } from 'react'
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import { ControlType } from '../../constants/enum'
-import IconButton from '@material-ui/core/IconButton';
 interface SelectProps {
   addControl: (e: any) => void;
   selected: number;

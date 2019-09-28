@@ -13,7 +13,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import { Route, Link } from 'react-router-dom';
 import { Preview } from '../field/index'
-const uid = require('uuid/v1');
+const  uid  = require('uuid/v1')
 interface DesignerState {
     structure: Component[];
     selectedControl: number;

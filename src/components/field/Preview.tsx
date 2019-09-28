@@ -7,7 +7,7 @@ interface PreviewProps {
 const Preview = () => {
     return <React.Fragment>
         <div id="Preview" key="Preview" className={"show"}>
-            <form>
+            <form className="form">
                 <FormRenderer
                     mode={FormMode.View}
                 />
