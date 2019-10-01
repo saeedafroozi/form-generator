@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { Desinger } from './components/design/index'
+import { Designer } from './components/design/index'
 import { createStore } from 'redux'
 import { formDesigner } from '../src/reducers/index'
 import { Provider } from 'react-redux'
@@ -46,7 +46,7 @@ const App: React.FC = () => {
     <Provider store={store}>
       <BrowserRouter>
         <div className="App">
-          <Desinger />
+          <Designer />
         </div>
       </BrowserRouter>
     </Provider>

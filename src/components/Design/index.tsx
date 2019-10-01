@@ -1,3 +1,3 @@
-import Desinger from './Desinger'
+import Designer from './Designer'
 import WrapperCard from './WrapperCard'
-export { Desinger, WrapperCard }
+export { Designer, WrapperCard }
