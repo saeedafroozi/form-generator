@@ -1,10 +1,11 @@
-form-generator
+react-multi-input
 
-Online Demo*
-
+*****online Demo*****
 https://codesandbox.io/s/github/saeedafroozi/form-generator
 
-Developed With Visual Studio Code -A source code editor developed by Microsoft for Windows, Linux and macOS. It includes support for debugging, embedded Git control, syntax highlighting, intelligent code completion, snippets, and code refactoring
+
+Developed With Visual Studio Code -A source code editor developed by Microsoft for Windows, Linux and macOS. 
+It includes support for debugging, embedded Git control, syntax highlighting, intelligent code completion, snippets, and code refactoring
 
 Node.js - Javascript runtime
 
@@ -14,17 +15,15 @@ Babel - A transpiler for javascript
 
 Webpack - A module bundler
 
-SCSS - A css metalanguage
+Material-UI - is a design language .
 
-Bootstrap 4 - Bootstrap is an open source toolkit for developing with HTML, CSS, and JS [Surge] - Static web publishing for Front-End Developers
-
-**** I've test this app Only on chrome and IE
+**** I've test this app Only on chrome 
 
 Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Prerequisites
+*****Prerequisites*****
 
 The following software is required to be installed on your system:
 
@@ -38,18 +37,22 @@ node -v
 
 npm -v
 
-Install
+*****Install*****
 
 Follow the following steps to get development environment running.
 
-Install node modules
+***Install node modules***
 
 npm install
 
+
 Build application and start watching for changes
 
+***Building***
 npm run build
 
-Run
-
+***Starting***
 npm run start
+
+*****result*****
+finally, you can see the result of the save button in the debugger(console)
