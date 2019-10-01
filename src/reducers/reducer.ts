@@ -59,7 +59,7 @@ function handleChangeSwitch(state, payload) {
     const list = [...state.structure];
     const index = list.findIndex(x => x.id === payload.id);
     const newObj = {...list[index]}
-    newObj.required = true;
+    newObj.required = !newObj.required;
     const newArray = [...list.slice(0, index), newObj, ...list.slice(index + 1)]
     return {
         ...state,
