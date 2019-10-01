@@ -1,4 +1,4 @@
-react-multi-input
+react-form-generator
 
 *****online Demo*****
 https://codesandbox.io/s/github/saeedafroozi/form-generator
