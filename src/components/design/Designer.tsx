@@ -43,10 +43,10 @@ const Designer = ({ dispatch, addControl, structure, selectedControl }: Designer
                         </Toolbar>
                     </AppBar>
                     <div className="designer">
-                        <div className="menu col-sm-2">
+                        <div className="menu col-lg-2">
                             <Add addControl={(e) => addControl(e.target.value, uid())} selected={selectedControl} />
                         </div>
-                        <div className="col-sm-10">
+                        <div className="col-lg-10">
                             <Display items={structure} />
                         </div>
                     </div>
