@@ -54,5 +54,4 @@ npm run build
 ***Starting***
 npm run start
 
-*****result*****
-finally, you can see the result of the save button in the debugger(console)
+
