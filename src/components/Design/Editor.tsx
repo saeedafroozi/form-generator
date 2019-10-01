@@ -1,5 +1,4 @@
 import React from 'react'
-import { Component } from '../../constants/index'
 import { FormRenderer } from '../formRenderer/index'
 import { FormMode } from '../../constants/enum'
 interface EditorProps {

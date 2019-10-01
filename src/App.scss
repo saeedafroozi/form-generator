@@ -1,36 +1,4 @@
-// .App {
-//   text-align: center;
-// }
 
-// .App-logo {
-//   animation: App-logo-spin infinite 20s linear;
-//   height: 40vmin;
-//   pointer-events: none;
-// }
-
-// .App-header {
-//   background-color: #282c34;
-//   min-height: 100vh;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   font-size: calc(10px + 2vmin);
-//   color: white;
-// }
-
-// .App-link {
-//   color: #61dafb;
-// }
-
-// @keyframes App-logo-spin {
-//   from {
-//     transform: rotate(0deg);
-//   }
-//   to {
-//     transform: rotate(360deg);
-//   }
-// }
 
 .app-bar {
   direction: rtl;
@@ -140,9 +108,11 @@
 }
 .MuiInputBase-input {
   font-size: 18px !important;
+  line-height: 1 !important;
 }
 .Mui-disabled {
   font-size: 14px !important;
+  margin-top: 12px !important;
 }
 .MuiCardContent-root {
   margin-left: 26px;
@@ -206,4 +176,35 @@
 .form {
   margin: 0 auto;
   width: 640px;
+}
+.date-time {
+  margin-top: 10px !important;
+}
+.MuiInputLabel-shrink {
+  font-size: 12px !important;
+}
+.form-view {
+  margin-bottom: 60px;
+}
+.form-label {
+  font-size: 20px;
+}
+.calendar-icon {
+  color: #673ab7 !important;
+}
+.row {
+  margin-top: 14px;
+}
+.submit {
+  background-color: #1a73e8 !important;
+  width: 90px;
+  height: 36px;
+  font-size: 12px !important;
+  color: white !important;
+}
+.button-parent{
+  text-align: center;
+}
+.MuiSwitch-colorPrimary.Mui-checked {
+  color: #673ab7 !important;
 }

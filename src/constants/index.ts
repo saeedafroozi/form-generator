@@ -1,17 +1,11 @@
 import { FormMode, ControlType, MultipleChoiceTypeEvent } from './enum'
-export interface Component {
-    // DataIndex?: string;
-    //Label?: string;
+export interface Control {
     required?: boolean;
     attributes?: any;
     type: ControlType;
-    // onChange?: (value: any) => void;//pak konam
     id: string;
-    // Value?:string;
 }
-export interface Control {
-    type: ControlType;
-}
+
 
 export interface ControlProps<T> {
     onChange: (e: any, id: string, mode: FormMode, type: ControlType) => void;
@@ -25,28 +19,31 @@ export interface MultipleChoiceAttributes {
     questionOptions?: SelectValue[];
     type?: MultipleChoiceTypeEvent;
     optionId?: string;
-    //questionOptionsCheckboxex?: CheckboxValue[];
 }
-// interface CheckboxValue {
-//     id: string;
-//     selected: boolean;
-//     value:string;
-// }
+
 
 interface SelectValue {
     id: string;
     value: string;
-    selected?:boolean;
+    selected?: boolean;
 }
 export interface ShorAnswer {
+    questionValue?: string;
+    answerValue?: string;
+}
+export interface DataTimeAttributes {
     questionValue?: string;
     answerValue?: string;
 }
 export interface CheckboxAttribute {
     questionValue: string;
 }
+export interface TitleFormAttributes {
+    title: string;
+    description: string;
+}
 export interface IBaseComponent {
-    changeHandler(oldValue, attributes);
+    changeHandler(oldValue, attributes, formMode);
 
     validate(): PromiseLike<{ errors: any[], values: object }>;
 

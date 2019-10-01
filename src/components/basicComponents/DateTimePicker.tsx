@@ -1,25 +1,22 @@
-import * as React from 'react';
-import { FormMode, ControlType } from '../../constants/enum';
-import { ControlProps, ShorAnswer } from '../../constants/index'
-import TextField from '@material-ui/core/TextField';
+import React from 'react'
+import TextField from '@material-ui/core/TextField'
+import { DataTimeAttributes, ControlProps } from '../../constants/index'
+import { FormMode, ControlType } from '../../constants/enum'
+import InputAdornment from '@material-ui/core/InputAdornment';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+interface WrapperDateTimeProps extends ControlProps<DataTimeAttributes> {
 
-
-
-interface TextInputProps extends ControlProps<ShorAnswer> {
-    classes?: any;
-    multiline?: boolean;
 }
 
-const TextInput = ({ multiline, mode, onChange, id, attributes }: TextInputProps) => {
-
+const WrapperDateTime = ({ mode, onChange, id, attributes }: WrapperDateTimeProps) => {
     const handleOnchange = (e) => {
-        let newAttributes: ShorAnswer;
+        console.log(e);
+        let newAttributes: DataTimeAttributes;
         newAttributes = mode === FormMode.Edit ? { questionValue: e.target.value } :
             { answerValue: e.target.value }
-
-        onChange(newAttributes, id, mode, multiline ? ControlType.Paragraph : ControlType.ShortAnswer)
+        onChange(newAttributes, id, mode, ControlType.DateTimepicker)
     }
-    let result = null;
+    let result;
     switch (mode) {
         case FormMode.View:
             result = <React.Fragment>
@@ -31,17 +28,17 @@ const TextInput = ({ multiline, mode, onChange, id, attributes }: TextInputProps
                 }
                 <TextField
                     id={id}
-                    key={id}
-                    className="input"
+                    label="DateTime"
+                    className="date-time"
+                    type="datetime-local"
                     value={attributes ? attributes.answerValue : ""}
-                    placeholder="Your Answer"
-                    fullWidth
                     onChange={handleOnchange}
-                    multiline={multiline}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
                 />
             </React.Fragment>
             break
-
         case FormMode.Edit:
             result = <React.Fragment>
                 <TextField
@@ -54,22 +51,20 @@ const TextInput = ({ multiline, mode, onChange, id, attributes }: TextInputProps
                     fullWidth
                 />
                 <TextField
-                    id={id + "answer"}
-                    key={id + "answer"}
-                    className="input disable"
-                    defaultValue={""}
-                    placeholder="Your Answer"
-                    fullWidth={multiline}
+                    id={id + "lable"}
                     disabled
+                    placeholder="Day,month,year"
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <CalendarTodayIcon className="calendar-icon" />
+                            </InputAdornment>
+                        ),
+                    }}
                 />
             </React.Fragment>
             break
-
     }
     return result
 }
-
-TextInput.defaultProps = {
-    mode: FormMode.Edit,
-}
-export default TextInput;
+export default WrapperDateTime;

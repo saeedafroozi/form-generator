@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.scss';
-import { Desinger } from './components/Design/index'
-import { createStore, compose } from 'redux'
+import { Desinger } from './components/design/index'
+import { createStore } from 'redux'
 import { formDesigner } from '../src/reducers/index'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom';

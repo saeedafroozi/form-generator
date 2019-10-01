@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Editor } from '../field/index'
-import { Component } from '../../constants/index'
+import Editor from './Editor'
+import { Control } from '../../constants/index'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 interface DisplayProps {
-    items: Component[]
+    items: Control[]
 }
 const Display = ({ items }: DisplayProps) => {
 
@@ -19,16 +19,16 @@ const Display = ({ items }: DisplayProps) => {
     };
 
     return <div className="display">
-        <AppBar position="static"  className="tabs" color="default">
+        <AppBar position="static" className="tabs" color="default">
             <Tabs
                 value={value}
                 indicatorColor="primary"
                 textColor="primary"
                 onChange={handleChange}
             >
-                <Tab  className="tab" label="Editor" >
+                <Tab className="tab" label="Editor" >
                 </Tab>
-                <Tab  className="tab" label="Responses" />
+                <Tab className="tab" label="Responses" />
             </Tabs>
         </AppBar>
 
@@ -36,7 +36,7 @@ const Display = ({ items }: DisplayProps) => {
             <Editor activeTab={value} />
         </TabPanel>
         <TabPanel value={value} index={1} >
-           "HIii Responses"
+            "HIii Responses"
         </TabPanel>
     </div>
 }

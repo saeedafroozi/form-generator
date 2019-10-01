@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormMode, ControlType } from '../../constants/enum'
-import { Component, Control } from '../../constants/index'
+import { Control } from '../../constants/index'
 import { Factory } from '../../constants/getComponent'
 import { IBaseComponent } from '../../constants/index'
 import { bindActionCreators } from 'redux'
-//import { convertToComponentModel } from '../../constants/ultility'
 import { connect } from 'react-redux'
-import { setValue } from '../../actions/index'
+import { setValue, deleteControl, changeSwitch } from '../../actions/index'
+import { WrapperCard } from '../design/index';
+
 interface FormRendererProps {
     setValue: (id: string, mode: FormMode, value: string, type: ControlType) => void;
-    //formDescriptor: Component[];
-    //formDescriptor: Component[];
-    //controlFactory?: (control: Component) => React.ReactNode;
+    deleteControl?: (id: string) => void;
+    changeSwitch?: (value: boolean, controlId: string) => void;
     mode: FormMode;
-    //downloadUrl?: string;
-    //onCreated?: (form: FormDesignerOnCreateArg) => void;
-    //[index: string]: any;
 }
 
 type FormRendererOnCreateArg = {
@@ -23,19 +20,34 @@ type FormRendererOnCreateArg = {
     setFieldsValue?: (value: object) => void;
 }
 interface FormRendererState {
-    structure: Component[];
+    structure: Control[];
 }
 
-const FormRenderer = ({ structure, mode, setValue }: FormRendererProps & FormRendererState) => {
+const FormRenderer = ({ structure, mode, setValue, deleteControl, changeSwitch }: FormRendererProps & FormRendererState) => {
 
     const handleOnChange = (attribute: any, id: string, mode: FormMode, type: ControlType) => {
-        setValue(id, mode,attribute, type)
+        setValue(id, mode, attribute, type)
     }
     return <React.Fragment>
-        {structure.map((Component) => {
-            let instance = Factory.create(Component.type);
-            return <div key={Component.id}>{(instance as IBaseComponent).getComponent(mode, handleOnChange, Component.id, Component.attributes)}</div>
-        })}
+        {
+            mode === FormMode.Edit ? structure.map((Component) => {
+                let instance = Factory.create(Component.type);
+                let result = (instance as IBaseComponent).getComponent(mode, handleOnChange, Component.id, Component.attributes)
+                return <WrapperCard key={Component.id} required={Component.required} controlId={Component.id} handleDelete={deleteControl} mode={mode} handleChangeSwitch={changeSwitch} type={Component.type} >
+                    {result}
+                </WrapperCard>
+            })
+                :
+                <WrapperCard mode={mode} >
+                    {structure.map((Component) => {
+                        let instance = Factory.create(Component.type);
+                        let result = (instance as IBaseComponent).getComponent(mode, handleOnChange, Component.id, Component.attributes)
+                        return <div key={Component.id} className="form-view">
+                            {result}
+                        </div>
+                    })}
+                </WrapperCard>
+        }
     </React.Fragment>
 }
 
@@ -49,7 +61,7 @@ function mapStateToProps(state: FormRendererState) {
 }
 
 function mapDispatchToProps(dispatch: any) {
-    return bindActionCreators({ setValue }, dispatch)
+    return bindActionCreators({ setValue, deleteControl, changeSwitch }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRenderer)

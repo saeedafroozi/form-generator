@@ -6,17 +6,23 @@ export enum ControlType {
     Dropdown = 5,
     FileUpload = 6,
     DateTimepicker = 7,
-    Custom = 8
+    TitleForm = 8,
+    Custom = 9
 }
 export enum FormMode {
     Edit = 1,
     View = 2
 }
 export enum MultipleChoiceTypeEvent {
-    addOption = 1,
-    removeOption = 2,
-    changeValueOption = 3,
-    selectRadioAnswer = 4,
-    changeQuestionValue = 5,
-    selectCheckbox = 6
+    AddOption = 1,
+    RemoveOption = 2,
+    ChangeValueOption = 3,
+    SelectRadioAnswer = 4,
+    ChangeQuestionValue = 5,
+    SelectCheckbox = 6
+}
+export enum MultiChoiceType {
+    Dropdown = 1,
+    Radio = 2,
+    Checkbox = 3
 }

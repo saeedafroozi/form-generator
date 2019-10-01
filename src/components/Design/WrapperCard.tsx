@@ -6,32 +6,34 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { ControlType } from '../../constants/enum';
+import { ControlType, FormMode } from '../../constants/enum';
 interface WrapperCardProbs {
-    result: React.Component<any>;
-    type: ControlType;
+    children?: any;
+    type?: ControlType;
+    mode: FormMode;
+    handleDelete?: (id: string) => void;
+    controlId?: string;
+    handleChangeSwitch?: (value: boolean, controlId: string) => void;
+    required?: boolean;
 }
-export const WrapperCard = ({ result, type }: WrapperCardProbs) => {
-    const [state, setState] = React.useState({
-        checkedA: false,
-    });
-    const handleChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setState({ ...state, checkedA: event.target.checked });
-    };
+export const WrapperCard = ({ type, mode, children, handleDelete, controlId, handleChangeSwitch, required }: WrapperCardProbs) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        handleChangeSwitch(event.target.checked, controlId);
+    }
     return <Card className="card" >
         <CardContent>
-            {result}
+            {children}
         </CardContent>
-        <CardActions className="action">
+        {mode === FormMode.Edit && <CardActions className="action">
             <IconButton aria-label="delete" >
-                <DeleteIcon className="deleteIcon" fontSize="large" />
+                <DeleteIcon onClick={() => handleDelete(controlId)} className="deleteIcon" fontSize="large" />
             </IconButton>
             <div className="customDivider" />
             <FormControlLabel
                 value="Required"
                 control={<Switch
-                    checked={state.checkedA}
-                    onChange={handleChange('checked')}
+                    checked={required}
+                    onChange={handleChange}
                     value="checked"
                     color="primary"
                     size="medium"
@@ -41,7 +43,8 @@ export const WrapperCard = ({ result, type }: WrapperCardProbs) => {
                 label="Required"
                 labelPlacement="start"
             />
-        </CardActions>
+        </CardActions>}
     </Card>
+
 }
 export default WrapperCard;

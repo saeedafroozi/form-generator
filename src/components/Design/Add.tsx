@@ -27,7 +27,6 @@ const Add = ({ addControl, selected }: SelectProps) => {
       className="control"
       variant='outlined'
     >
-
       <MenuItem className="select-item" value={ControlType.ShortAnswer}>ShortAnswer</MenuItem>
       <MenuItem className="select-item" value={ControlType.Paragraph}>Paragraph</MenuItem>
       <MenuItem className="select-item" value={ControlType.Checkboxes}>Checkboxes</MenuItem>
@@ -35,7 +34,7 @@ const Add = ({ addControl, selected }: SelectProps) => {
       <MenuItem className="select-item" value={ControlType.Dropdown}>Dropdown</MenuItem>
       <MenuItem className="select-item" value={ControlType.DateTimepicker}>DateTimepicker</MenuItem>
       <MenuItem className="select-item" value={ControlType.FileUpload}>FileUpload</MenuItem>
-      <MenuItem className="select-item" value={ControlType.Custom}>Custom</MenuItem>
+      {/* <MenuItem className="select-item" value={ControlType.Custom}>Custom</MenuItem> */}
     </Select>
   </div>
 
