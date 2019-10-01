@@ -6,7 +6,7 @@ import { IBaseComponent } from '../../constants/index'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { setValue, deleteControl, changeSwitch } from '../../actions/index'
-import { WrapperCard } from '../design-/index'
+import { WrapperCard } from '../design/index'
 
 interface FormRendererProps {
     setValue: (id: string, mode: FormMode, value: string, type: ControlType) => void;
